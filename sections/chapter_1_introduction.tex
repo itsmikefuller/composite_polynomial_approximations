@@ -1,0 +1,64 @@
+\chapter{Introduction}\label{intro}
+\pagenumbering{arabic}
+
+Composite approximations of functions appear in a range of modern mathematical literature, with a prime example being in the computation of matrix functions. The study of matrix functions has become a growing area of research in recent years for its far-reaching applications in scientific computing, engineering and finance. For instance, there are many frameworks in which it is desirable to compute the $p$th root $X$ of a stochastic matrix $A$, whose entries might encode the probabilities that a company moves from one credit rating to another over a given time period, or the progression of chronic diseases in patients at different stages in time \cite{Highammatrixroots}. In this case, the matrix root will not only satisfy $X^p=A$, but have entries corresponding to a shorter time period. For example, if $A$ represents an annual transition matrix and $p=2$, then $X$ is a six-month transition matrix---a \textit{matrix square root} of $A$\footnote{Further applications of matrix functions are discussed in \cite{highmatrix,Kennedy}.}.
+
+\bigskip{}
+
+Numerical methods for computing functions of matrices are well-established and plentiful; such methods are discussed in depth in \cite{Higham}. In particular, using matrix iterations $X_{k+1}=g(X_k)$, typically where $g$ is a polynomial or rational function, results in composite polynomial or rational approximations to a matrix function $f(A)$ in terms of an initial guess $X_0$. Matrix iterations are commonly used for the computation of matrix roots, in addition to the \textit{matrix sign function} \cite{kenney,soleymani2014approximating,soleymani2014some}, and the unitary matrix arising from \textit{polar decomposition} \cite{YujiZolotFreund}. A material example is the Newton iteration for the matrix square root \cite{highamsqrt}
+\begin{align}
+    X_{k+1}=\dfrac{1}{2}(X_k + X_k^{-1}A), \qquad X_0=A, \label{newty}
+\end{align}
+which computes the root of a nonsingular, diagonalisable matrix $A \in \C^{n\times n}$ with no eigenvalues on the closed negative real axis\footnote{Such a square root exists and is unique: see \cite[Theorem 1.29]{Higham}.}. The limit of \eqref{newty} is known as the \textit{principal square root}, denoted by $A^{1/2}$. For this example, it is easy to show that the iterates $X_k$ are also diagonalisable, and if $D_k=\text{diag}(\lambda_k^{(1)},\dots,\lambda_k^{(n)})$ is the diagonal matrix arising from the eigendecomposition for $X_k$, then
+\[\lambda_{k+1}^{(j)}=\dfrac{1}{2}\left(\lambda_k^{(j)}+\dfrac{\lambda_0^{(j)}}{\lambda_k^{(j)}}\right), \qquad j=1,\dots,n.\]
+That is, the Newton iteration \eqref{newty} can be broken down into $n$ independent scalar Newton iterations for computing the square roots of $\lambda_0^{(j)}$, namely the eigenvalues of $A$. Accordingly, we might consider using successive approximations of functions $f_{k+1}=g(f_k)$ on some interval containing $\Lambda(A)$, the spectrum of $A$, as a basis for determining matrix iterations $X_{k+1}=g(X_k)$. Indeed, the scalar Newton iterations above converge if the functions $f_k$ defined by $f_0(x) = x$ and
+\begin{align}
+   f_{k+1}=g(x,f_k(x)),\qquad g(x,y)=\dfrac{1}{2}\left(y+y^{-1}x\right)\label{funkyiter}
+\end{align}
+converge to $\sqrt{x}$ on $\Lambda(A)$, and we note that the matrix iteration \eqref{newty} is given by $X_{k+1}=g(A,X_k)$. 
+
+\bigskip{}
+
+Using composite rational functions such as \eqref{funkyiter} to compute matrix functions is the approach of much of the modern literature \cite{Gawlik,ZolotGawlik,yujihighamstable}; often polynomials are dismissed for their poor comparative performance at a scalar level. However, to evaluate rational functions at a matrix argument we must compute matrix inverses, either directly or by a matrix decomposition (such as the Cholesky factorisation $A=LL^*$ for positive-definite Hermitian matrices \cite{cholesky}), which is expensive in comparison to polynomial evaluations which only require matrix multiplications.
+
+\bigskip{}
+
+%The \textit{Zolotarev functions} are the rational best approximants to the sign function on $X(\delta)=[-1,-\delta]\cup [\delta,1]$ for some $\delta \in (0,1)$, written $Z_{2r+1}(x;\delta)$ for type $(2r+1,2r)$ approximations. The explicit form of $Z_{2r+1}(x;\delta)$ was found by Zolotarev in the 19$^{\text{th}}$ century \cite{Zolo}, and more recently it was shown that 
+%\[\hat{Z}_{2r'+1}(\hat{Z}_{2r+1}(x;\delta);\delta') = \hat{Z}_{(2r+1)(2r'+1)}(x;\delta),\]
+%where $\hat{Z}_{2r+1}(x;\delta)$ denotes the Zolotarev function scaled so that $\hat{Z}_{2r+1}(1;\delta)=1$ \cite{YujiZolotFreund}. The proof counts equioscillation points and invokes the equioscillation property of best approximations. Zolotarev functions are also deeply connected to the best rational approximants for the square root, see e.g. Akhiezer \cite[Chapter 9]{akhiezer}. In fact, iterations for computing matrix roots have been constructed using Zolotarev functions \cite{ZolotGawlik,Gawlik}.
+
+%\bigskip{}
+
+The goal of this dissertation is to construct and analyse composite \textit{polynomial} approximations to scalar functions, with the discussion above serving as motivation for doing so. Whilst it is not always the case that results for scalar iterations hold for the matrix counterpart (see \cite[Section 4.9]{Higham}), there are still many interesting questions concerning composite polynomials that can be asked. For example, we know that every continuous function $f$ on a closed, bounded interval has a unique best approximation in every class of polynomials or rational functions, and that the best approximation is characterised by an equioscillation property in the error function \cite{ATAP}. Whilst it is ambitious to believe that composite polynomials (or rational functions) are best approximations for their degree\footnote{Surprisingly, there is a class of rational functions for which this property holds, called the \textit{Zolotarev functions}. We discuss these in Chapter \ref{sgnchapter}.}, one question we could ask is how quickly they converge with respect to their \textit{degrees of freedom}---the number of parameters required to express them. Composing polynomials or rational functions is an effective method for generating such functions of much higher degree with respect to their degrees of freedom\footnote{For example, an inductive argument shows that the $f_k$ in \eqref{funkyiter} are rational functions of type $(2^{k-1},2^{k-1}-1)$, yet have at most $4k$ degrees of freedom.}, so much so that we can construct a composite rational approximation to $\sqrt{x}$ for which the convergence is \textit{doubly exponential}\footnote{By doubly exponential, we mean that an approximation with $d$ degrees of freedom has maximum uniform error $O(\exp(-C_1\exp(C_2d)))$ for some constants $C_i>0$.} with respect to the degrees of freedom \cite{Yuji}. In this dissertation, we consider such questions in the polynomial setting.
+\section*{Outline}
+
+This dissertation is structured as follows. Chapter \ref{chap:prelim} is a preliminary discussion in which we review fundamental results from approximation theory and discuss variants of Newton's Method used for approximating the sign and square root functions. In Chapter \ref{sgnchapter}, we introduce the Zolotarev functions, and construct a composite polynomial approximation to the sign function inspired by the recursive optimality property of the Zolotarev functions. We analyse the convergence of our construction, and make comparisons with the minimax approximation with respect to the degrees of freedom. Finally, we use the sign function approximation in Chapter \ref{sqrtchapter} to obtain a composite polynomial approximation to $\sqrt{x}$. The appendix contains results concerning rational functions, included to provide a comparison to the polynomial results.
+
+%In Chapter \ref{appchapter}, we comment on the use of these composite approximations towards computing matrix functions.
+
+\section*{Notation}
+
+In this dissertation, we shall use the following notation without further discussion:
+\begin{itemize}
+    \item $\N=\{0,1,2,\dots\}$;
+    %\item $I \subset \R$ denotes a closed, bounded interval (unless otherwise stated);
+    \item $C(I)$ denotes the set of continuous functions on an interval $I \subset \R$;
+    \item $\norm{\cdot}_{\infty,I}$ denotes the $\infty$-norm over $I$, defined by $\norm{f}_{\infty,I}=\max_{x\in I}|f(x)|$;
+    \item $\Pee_n(I)$ denotes the set of polynomials of degree at most $n$ on $I$;
+    \item $\Arr_{m,n}(I)$ denotes the set of rational functions of type $(m,n)$ on $I$, namely
+    \[\Arr_{m,n}(I)= \{p/q : p \in \Pee_m(I),\, q \in \Pee_n(I)\}.\]
+    %\item $T_k(x)$ denotes the $k$th Chebyshev polynomial of the first kind, defined by
+    %\[T_0(x)=1,\quad T_1(x) = x,\quad T_{k+1}(x) = 2xT_k(x) - T_{k-1}(x) \quad (k\geq 1);\]
+    %\item If $f:[-1,1]\to\R$ is Lipschitz, we can write $f$ as an absolutely and uniformly convergent Chebyshev series\footnote{See \cite[Theorem 3.1]{ATAP}.} $f(x) = \sum_{k=0}^\infty a_k T_k(x)$. In this case,
+    %\[f_n(x) = \sum_{k=0}^n a_k T_k(x), \qquad p_n(x) = \sum_{k=0}^n c_k T_k(x)\]
+    %denote the Chebyshev truncation and interpolant respectively. The $c_k$ can be determined in terms of the $a_k$, as shown in \cite[Theorem 4.2]{ATAP}.
+    
+    %\item $I_K(f)=\int_K f(x) \, dx$ denotes the integral of $f$ over $K$;
+    %\item $V_K(f)=\int_K |f'(x)| \, dx$ denotes the total variation of $f$ over $K$.
+    %\item $C^k(\O)$ denotes the set of functions on $\O$ with continuous derivatives up to order $k$; in particular, $C^\infty(\O)$ denotes the set of infinitely differentiable (smooth) functions on $\O$;
+    %\item $\supp(u):=\overline{\{x \in \O : u(x)\neq 0\}}$ denotes the support of $u$;
+    %\item $C_c^k(\O)$ denotes the set of $C^k(\O)$ functions with compact support in $\O$;
+    %\item $u^+:=\max(u,0)$ denotes the positive part of $u$;
+    %\item $u^-:=-\min(u,0)$ denotes the negative part of $u$.
+\end{itemize}
+We omit $I$ in notation when the interval is clear, and write e.g. $\Pee_m$, $\Arr_{m,n}$, $\norm{\cdot}_\infty$.

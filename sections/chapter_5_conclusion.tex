@@ -1,0 +1,24 @@
+% CHAPTER
+\chapter{Conclusion}
+
+Motivated by the recursive optimality property of the Zolotarev functions, we constructed a composite polynomial approximation to the scalar sign function on $[-1,-\delta]\cup[\delta,1]$ using a greedy iterative process. Although our construction was not optimal, we showed that it was equivalent to a scaled variant of the Newton-Schulz method for approximating the sign function, where the scaling at each iteration depended on the value of the extremal point of the iteration function. We noted that, when compared to the minimax approximation with respect to degrees of freedom, the scaled Newton-Schulz iteration was far superior. For a given $\delta$, a lower bound number of iterations needed to obtain a given accuracy $\ep>0$ was derived, in a similar manner to the work of Nakatsukasa and Gawlik \cite{Yuji}, and this bound was used to show that the converge of the scaled-Newton Schulz iteration is doubly exponential with respect to the degrees of freedom.
+
+\bigskip{}
+
+We also proved that the scaled Newton-Schulz iteration can be transformed into a composite approximation for the square root function whose error on $[\delta^2,1]$ is bounded by the error in the sign functino approximation; the iteration we derived produces polynomial iterates for any initial guess divisible by $x$. This approximation was shown to be equivalent and superior to a scaled variant of Newton's Method---one in which a different algebraic equation was initially considered, in order to avoid iterates dividing by their predecessor and hence generating rational approximations. 
+
+\bigskip{}
+
+
+
+\section{Where does this project lead?}
+
+Throughout this dissertation, many potential avenues were unlocked for further research. On multiple occasions, we drew attention to how composite polynomial and rational approximations are used to compute matrix functions, yet this is an area which we purposefully avoided to focus our work on gleaning results at a scalar level. The power and limitations of our constructed approximations when evaluated at a matrix argument are yet to be fully explored.
+
+\bigskip{}
+
+With regards to the scaled Newton-Schulz iteration, the following two questions were left unsolved. Firstly, while the iteration appears to perform well in the space of composite polynomials, it is unclear whether or not our construction is indeed the best approximation with respect to the space $\Pee_{(k,3)}^{\text{comp}}$. For example, can we find suboptimal iteration functions $\tilde{g}_i$ such that, when composed, $\tilde{g}_2(\tilde{g}_1(x))$ is a better approximation to the sign function than $g_2(g_1(x))$? Moreover, what if we considered greedy approximations comprising of higher-degree polynomials, such as $\Pee_{(k,5)}^{\text{comp}}$ or $\Pee_{(k,7)}^{\text{comp}}$? At what point does the computational cost arising from the degree of the composed polynomials cease to be optimal? 
+
+\bigskip{}
+
+Finally, and most importantly, we wish to continue the analysis of the scaled Alternative Newton iteration to $\sqrt{x}$ beyond the submission of this dissertation. From the perspective of rational functions, we know that there is a composite approximation whose convergence is \textit{doubly exponential} with respect to the degrees of freedom \cite{Yuji}, and Figures 4.3-4.6 seem to suggest that convergence will be at least exponential in the polynomial setting.

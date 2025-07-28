@@ -1,0 +1,129 @@
+A classic problem in approximation theory is to approximate a (real or complex) function $f$ by a polynomial $p$. Combining beautiful theory and reliable algorithms, univariate polynomial approximation has reached a mature stage, as implemented in the Chebfun software package \cite{chebfun}. For example, polynomial approximations for analytic functions on $[-1,1]$ converge geometrically \cite{ATAP}. Approximation theory is ubiquitous in scientific computing.
+
+\bigskip{}
+
+A relatively uncharted question is to approximate $f$ by a composite polynomial, of the form $q=p_k\circ p_{k-1} \circ\cdots \circ p_1$. Composing polynomials is a highly efficient way of generating high-degree polynomials, so they can potentially be much more powerful than plain polynomials, with respect to the degrees of freedom. In fact, they are the crucial tool for most algorithms for computing matrix functions \cite{Higham}, and one can understand deep learning as a composition of large number of piecewise polynomials. This dissertation aims to investigate the power and limitations of composite polynomials as a tool for approximating univariate functions.
+
+
+%%%%%%%%%%%%%%%%
+%Table
+
+The values of $\ep_k$ are computed for $\delta=0.1$ in Table \ref{tabledelta} and compared with the error in the unscaled Newton-Schulz iterates \eqref{scalarNSsign}. For this value of $\delta$, we require only 7 scaled Newton-Schulz iterations for machine epsilon precision.
+
+\begin{table}[!b] 
+    \begin{subtable}{.5\linewidth}
+      \centering
+        \caption{Unscaled Newton-Schulz iterates}
+        \begin{tabular}{|l|l|}
+\hline
+$k$ & Error \\ \hline
+1   &   8.505e-1        \\ \hline
+2   &  7.774e-1         \\ \hline
+3   &   6.716e-1        \\ \hline
+4   &  5.252e-1         \\ \hline
+5   &   3.413e-1        \\ \hline
+6   &   1.548e-1        \\ \hline
+7   &    3.410e-2       \\ \hline
+8   &   1.725e-3        \\ \hline
+\end{tabular}
+    \end{subtable}%
+    \begin{subtable}{.5\linewidth}
+      \centering
+        \caption{Scaled Newton-Schulz iterates}
+        \begin{tabular}{|l|l|}
+\hline
+$k$ & Error \\ \hline
+1   &   6.072e-1        \\ \hline
+2   &  3.067e-1         \\ \hline
+3   &   7.245e-2        \\ \hline
+4   &  3.942e-3         \\ \hline
+5   &   1.165e-5        \\ \hline
+6   &   1.019e-10        \\ \hline
+7   &    0       \\ \hline
+8   &    0       \\ \hline
+\end{tabular}
+    \end{subtable} 
+\caption{Error values for the unscaled \eqref{scalarNSsign} and scaled Newton-Schulz iterates $C_k^{-1}f_k$ to $\sgn(x)$ on $X(\delta)$, where $\delta=0.1$. Here 0 indicates machine epsilon $\ep\approx$ 2.2204e-16 has been reached.}
+\label{tabledelta}
+\end{table}
+
+
+
+
+
+
+We summarise our results of this dissertation in the following table. Contributions have been made towards the composite polynomial approximation of $\sqrt{x}$ on $[\delta^2,1]$.
+
+\begingroup
+
+\renewcommand{\arraystretch}{1.2}
+
+\begin{table}[h!]
+
+%\setlength{\tabcolsep}{5pt}
+
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{$f(x)$} &
+  \multirow{2}{*}{Interval} &
+  \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Unscaled\\approximation\end{tabular}} &
+  \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Scaled\\ approximation\end{tabular}} &
+  \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Scaling $\xi_{k+1}$\end{tabular}} \\
+ &
+   &
+   &
+   &
+   \\ \hline
+
+\multirow{2}{*}{$\sgn(x)$} &
+  \multirow{2}{*}{$X(\delta)$} &
+  \multirow{2}{*}{$f_{k+1}=\dfrac{f_k}{2}\left(3-f_k^2\right)$} &
+  \multirow{2}{*}{$F_{k+1}=\dfrac{F_k/\xi_{k+1}}{2}\left(3-F_k^2/\xi_{k+1}^2\right)$} &
+  \multirow{2}{*}{$\sqrt{\dfrac{1+F_{k}(\delta)+F_{k}(\delta)^2}{3}}$} \\
+ &
+   &
+   &
+   &
+   \\ \hline
+$\sqrt{x}$ &
+  $[\delta^2,1]$ &
+  $f_{k+1}=\dfrac{f_k}{2}\left(3-\dfrac{f_k^2}{x}\right)$ &
+  $F_{k+1}=\dfrac{F_k/\xi_{k+1}}{2}\left(3-\dfrac{F_k^2/\xi_{k+1}^2}{x}\right)$ &
+  \begin{tabular}[c]{@{}c@{}}$\sqrt{\dfrac{\delta^2+\delta F_{k}(\delta^2)+F_{k}(\delta^2)^2}{3\delta^2}}$
+  \end{tabular} \\ \hline
+\end{tabular}%
+}
+\end{table}
+\endgroup
+
+#
+
+
+
+
+
+%Despite having the exact error formula \eqref{Ceekay}, and knowing that $\{\xi_k\}_{k\geq 1}$ is a strictly increasing sequence by Lemma \ref{tekky}, an explicit recursion $\xi_{k+1}=H(\xi_k)$ is cumbersome, as the following lemma shows.
+
+%\begin{lemma}
+%The $\xi_k$ as defined in \eqref{compconsts} satisfy the recursion %$\xi_{k+1}=H(\xi_k)$, where
+%\begin{align}
+%    \dfrac{\sqrt{3(4H(x)^2-1)}-1}{\sqrt{3(4x^2-1)}-1}=\dfrac{\sqrt{3}}{4x^3}(\sqrt{4x^2-1}+1). \label{cumbersome}
+%\end{align}
+%\end{lemma}
+
+%\begin{proof}
+%Using \eqref{compconsts}, we solve for the value of $f_{k-1}(\delta)$ in terms of $\xi_k$, giving
+%\[f_{k-1}(\delta)=\dfrac{\sqrt{3(4\xi_k^2-1)}-1}{2}.\]
+%Furthermore, writing $f_k$ in terms of the previous iterate gives
+%\[f_{k}(x)=\dfrac{f_{k-1}(x)}{2\xi_{k}}\left(3-\dfrac{f_{k-1}(x)^2}{\xi_{k}^2}\right).\]
+%Writing
+%\[\xi_{k}=\dfrac{f_{k-1}(x)}{2f_{k}(x)}\left(3-\dfrac{f_{k-1}(x)^2}{\xi_{k}^2}\right)\]
+%and substituting $x=\delta$, we obtain
+%\begin{align*}
+%    \xi_{k} &=\dfrac{\sqrt{3(4\xi_k^2-1)}-1}{2\left(\sqrt{3(4\xi_{k+1}^2-1)}-1\right)}\left(3-\dfrac{(\sqrt{3(4\xi_k^2-1)}-1)^2}{4\xi_{k}^2}\right)\\
+%    &=\dfrac{\sqrt{3(4\xi_k^2-1)}-1}{2\left(\sqrt{3(4\xi_{k+1}^2-1)}-1\right)} \dfrac{\sqrt{3}}{2}\left(\dfrac{\sqrt{4\xi_k^2-1}+1}{\xi_k^2}\right),
+%\end{align*}
+%which can be rearranged to give \eqref{cumbersome}.
+%\end{proof}

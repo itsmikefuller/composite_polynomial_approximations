@@ -1,0 +1,49 @@
+% CHAPTER
+\chapter{Approximating $\exp(z)$ with polynomials}
+
+Before we consider approximation with composite polynomials, we discuss some of the existing results for composite rational functions. For this, we must introduce some definitions.
+
+\begin{defn}
+A bivariate rational function $r(x,y)=p(x,y)/q(x,y)$ is said to be of type $(m,n)$ if $\tilde{r}(x):=r(x,x) \in \Arr_{mn}$. A univariate rational function $r(x)$ is said to be $(k,m,n)$-composite if
+\[r(x) = r_k(x,r_{k-1}(x,r_{k-2}(\cdots(x,r_1(x,1)))))\]
+for $k$ rational functions $r_i(x,y)$, $i=1,\dots,k$, each of type $(m,n)$. 
+\end{defn}
+
+\section{Scaling and squaring method}
+
+The exponential function $f(x)=e^x$, in particular the matrix exponential 
+\begin{align}
+    e^A := \sum_{k=0}^\infty \dfrac{A^k}{k!}, \qquad A \in \C^{n\times n}, \label{exp}
+\end{align}
+is well-analysed due to its appearance in solutions of many systems of linear ODEs. In control theory, which concerns continuously operating dynamical systems, we can approximate solutions to such systems by converting them to a discrete-time system and approximating the matrix exponential. For example, the system $\dot{x}(t) = Ax(t)+Bu(t)$ can be discretised to $x_{k+1} = Cx_k + Du_k$, where
+\[C = e^{A\tau}, \qquad D = \left(\int_0^\tau e^{At} \,dt\right)B\]
+for some sampling period $\tau$.
+
+\bigskip{}
+
+There are many ways to compute \eqref{exp}; Moler and Van Loan remark in \cite{nineteen} that the \textit{scaling and squaring method} is superior in terms of computational cost. This method uses rational functions to approximate $e^A$, and involves taking the \textit{Padé approximant} of $f$, i.e. the unique rational approximation $r_{mn} \in \Arr_{mn}$ for which $f(x)-r_{mn}(x) = O(x^{k+m+1})$. It is known\footnote{see Higham \cite[p. 241]{Higham}.} that $r_{mn}(x) = p_{mn}(x)/q_{mn}(x)$, where
+\[p_{mn}(x)=\sum_{k=0}^n \dfrac{(m+n+k)!m!}{(m+n)!(m-k)!} \dfrac{x^k}{k!}, \qquad q_{mn}(x) = p_{nm}(-x).\]
+
+We restrict to the case $m=n$, since otherwise $r_{jj}$ with $j=\max(m,n)$ is a better approximant than $r_{mn}$, despite taking the same computational cost to be evaluated at a matrix argument. Writing $r_m(x) = r_{mm}(x)$, the scaling and squaring method for approximating $X \approx e^A$ for a given matrix $A$ then reads
+\begin{itemize}
+    \item Set $B=A/2^s$ for $s$ large enough such that $\norm{B}_\infty \approx 1$;
+    \item Compute the type $(n,n)$ Padé approximant, $r_n(B)$, to $e^B$;
+    \item Set $X=r_n(B)^{2^s}.$
+\end{itemize}
+This method can be viewed as a composite rational approximation to $e^A$, since
+\begin{align}
+    X = g_s(g_{s-1}(\cdots(g_1(r_n(B))))), \label{rnb}
+\end{align}
+where $g_i(x)=x^2$ for each $i$. Higham also mentions in \cite{Higham} that $p_{mm}(x)$ and $q_{mm}(x)$ respectively approximate $e^{x/2}$ and $e^{-x/2}$.
+
+\bigskip{}
+
+One question that we can consider therefore is what happens when we replace $r_n(B)$ in \eqref{rnb} with a polynomial approximant, therefore making $X$ a composite polynomial approximation.  
+
+
+%The only generally competitive series method is Method 3, scaling and squaring. Ward’s program implementing this method is certainly among the best currently available. The program may fail, but at least it tells you when it does. We don’t know yet whether or not such failures usually result from the inherent sensitivity of the problem or from the instability of the algorithm. 
+
+
+%\newpage
+%\thispagestyle{empty}
+%\mbox{}

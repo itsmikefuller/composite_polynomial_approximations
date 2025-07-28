@@ -1,0 +1,210 @@
+ \documentclass[a4paper,12pt,twoside]{report}
+\usepackage[a4paper]{geometry}
+\savegeometry{}
+\usepackage{caption}
+\usepackage[toc]{appendix}
+
+%FONT STUFF
+\usepackage{sectsty,hyperref,mathtools}
+%\allsectionsfont{\centering\bfshape}
+%\usepackage[math]{mathpazo}
+\usepackage[T1]{fontenc}
+\usepackage[font=small,labelfont=bf]{caption}
+
+%FINAL SETTINGS?
+%\documentclass[a4paper,12pt,twoside,draft]{report}
+%\usepackage[a4paper,inner=1.6in,outer=1.05in]{geometry}
+
+\usepackage[backend=biber,sorting=nty]{biblatex}
+\addbibresource{books.bib}
+\renewbibmacro{in:}{}
+
+\usepackage{titlepic,pdfpages,bbm}
+\usepackage[british]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+%\usepackage{booktabs}
+%\usepackage{url}
+%\usepackage{tikz}
+\usepackage{graphicx,booktabs,lscape} 
+\usepackage{multirow}
+%\usepackage{pgfplots}
+\usepackage{listings}
+\usepackage[bottom]{footmisc}
+\usepackage{titling}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage[mathscr]{euscript}
+\usepackage{subcaption}
+
+%\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+%\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+%\definecolor{mylilas}{RGB}{170,55,241}
+
+\usepackage{needspace}
+
+%\usepackage{tcolorbox}
+  
+\usepackage[ruled,linesnumbered]{algorithm2e}
+
+%\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+%\cfoot{\thepage}
+%\lhead[\leftmark]{}
+%\rhead[]{\leftmark}
+
+\fancyhf{}
+\fancyhead[RE,LO]{\textit{\nouppercase\rightmark}}
+\fancyhead[LE,RO]{\thepage}
+ 
+\renewcommand{\headrulewidth}{0.75pt}
+
+\usepackage{amsmath,amsthm,amssymb,mathrsfs}
+
+\setlength{\parindent}{0pt}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[chapter]
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{corollary}[thm]{Corollary}
+
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{ex}[thm]{Example}
+\newenvironment{sproof}{%
+  \renewcommand{\proofname}{Sketch of proof.}\proof}{\endproof}
+
+\newcommand{\hook}{\hookrightarrow}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\D}{\mathscr{D}}
+\newcommand{\all}{\, \forall \,}
+\newcommand{\exist}{\, \exists \,}
+\newcommand{\R}{\mathbb{R}}
+\renewcommand{\O}{\Omega}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\to}{\rightarrow}
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Oh}{\mathcal{O}}
+\newcommand{\Pee}{\mathcal{P}}
+\newcommand{\Arr}{\mathcal{R}}
+\newcommand{\Ef}{\mathcal{F}}
+\newcommand{\ep}{\varepsilon}
+\newcommand{\roep}{\rho_\varepsilon}
+\newcommand{\dom}{\D(\O)} 
+\newcommand{\ud}{\,\,\mathrm{d}} %integral d
+\newcommand{\dee}{\partial}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\newcommand{\osc}{\text{osc}\,}
+\newcommand{\sgn}{\text{sgn}}
+\renewcommand{\deg}{\text{deg}\,}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\setlength{\headheight}{16pt}
+
+%\usepackage{lipsum,etoolbox}% http://ctan.org/pkg/{lipsum,etoolbox}
+
+% \patchcmd{<cmd>}{<search>}{<replace>}{<success>}{<failure>}
+%\patchcmd{\abstract}{\titlepage}%{\titlepage% Insert ToC-writing after starting a titlepage
+  %\addcontentsline{toc}{chapter}{Abstract}}{}{}
+
+
+%\newtcolorbox{mybox}[3][]
+%{
+%  colframe = #2!25,
+%  colback  = #2!10,
+%  coltitle = #2!20!black,  
+%  title    = #3,
+%  #1,
+%}
+
+
+% TITLE PAGE
+%\title{\textbf{Approximation of Functions by %Composite Polynomials}}
+%\titlepic{\includegraphics[width=0.25\textwid%th]{oxlogo.png}}
+%\author{CCD Dissertation on a Mathematical %Topic\\~\\\\MMath Mathematics}
+%\date{Trinity Term 2020}
+
+
+\title{\textbf{Composite Polynomial Approximations to the Sign and Square Root Functions}\\~\\{\large Part C Dissertation submitted in partial fulfilment of the requirements for the degree of Master of Mathematics}\\~\\~\\
+\includegraphics[width=0.3\textwidth]{figures/oxlogo.png}}
+\author{Michael J. Fuller}
+\date{Trinity Term 2020}%\\ \vspace{0.45cm}\\Word count: 5558}
+
+
+% DRAFT
+%\usepackage[firstpage]{draftwatermark}
+%\SetWatermarkLightness{0.5}
+%\SetWatermarkScale{4}
+
+\newenvironment{dedication}
+  {\clearpage           % we want a new page
+   \thispagestyle{empty}% no header and footer
+   \vspace*{\stretch{1}}% some space at the top 
+   \itshape             % the text is in italics
+   \raggedleft          % flush to the right margin
+  }
+  {\par % end the paragraph
+   \vspace{\stretch{3}} % space at bottom is three times that at the top
+   \clearpage           % finish off the page
+  }
+
+\allowdisplaybreaks
+
+% BEGIN DOCUMENT
+\begin{document}
+
+\begin{titlepage}
+\newgeometry{hmarginratio=1:1}
+\maketitle
+\restoregeometry
+\end{titlepage}
+
+\begin{dedication}
+To Ray, Toni, and Sam.
+\end{dedication}
+
+\newpage
+
+\input{sections/abstract}
+
+\tableofcontents
+%\thispagestyle{empty}
+
+%\listoffigures
+%\listoftables
+
+\input{sections/chapter_1_introduction}
+\input{sections/chapter_2_preliminary_discussion}
+\input{sections/chapter_3_composite_poly_approx_sgn}
+\input{sections/chapter_4_composite_poly_approx_sqrt}
+\input{sections/chapter_5_conclusion}
+\input{sections/appendices}
+
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\vfill
+
+\input{sections/acknowledgements}
+
+\vfill
+
+\newpage
+\pagenumbering{gobble}
+\addcontentsline{toc}{chapter}{References}
+\renewcommand{\bibname}{References}
+\printbibliography
+
+\end{document}
