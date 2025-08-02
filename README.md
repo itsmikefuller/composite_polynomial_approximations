@@ -1,10 +1,14 @@
+<p align="center">
+  <img src="figures/github_readme.png" alt="Composite Polynomial Approximations to the Sign Function" width="100%"/>
+</p>
+
+---
+
 # Composite Polynomial Approximations to the Sign and Sqrt Functions
 
 **Author:** Mike Fuller
 
 **Last Updated:** 29th July 2025
-
-<img src="figures/github_readme.png" alt="Composite Polynomial Approximations to the Sign Function" width="100%"/>
 
 This repository contains the figures and report for my master's disseration, *Composite Polynomial Approximations to the Sign and Sqrt Functions*, at the University of Oxford.
 
